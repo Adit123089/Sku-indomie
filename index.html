@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Indomie Mie Goreng</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: black;
+      color: white;
+    }
+    header {
+      text-align: center;
+      padding: 20px;
+      position: relative;
+    }
+    header h1 {
+      font-size: 2em;
+      color: cyan;
+      text-shadow: 0 0 5px cyan, 0 0 15px magenta;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0,255,255,0.3);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 40px magenta;
+    }
+    .card img {
+      width: 100%;
+      display: block;
+    }
+    .card-content {
+      padding: 15px;
+    }
+    .card-content h3 {
+      margin: 0 0 10px;
+      color: cyan;
+    }
+    .price {
+      color: magenta;
+      font-weight: bold;
+      margin: 5px 0;
+    }
+    .desc {
+      font-size: 0.9em;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 10px;
+    }
+    footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 0.8em;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.6);
+    }
+    /* Efek scanline */
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.03) 0px,
+        rgba(255,255,255,0.03) 1px,
+        transparent 2px,
+        transparent 3px
+      );
+      animation: scan 6s linear infinite;
+    }
+    @keyframes scan {
+      0% { background-position-y: 0px; }
+      100% { background-position-y: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>AFTERSY // CYBER EMPORIUM</h1>
+  </header>
+
+  <section class="products" id="product-list">
+    <!-- Produk dari JavaScript -->
+  </section>
+
+  <footer>
+    © <span id="year"></span> Aftersy Neonworks. Semua hak cipta dilindungi.
+  </footer>
+
+  <script>
+    const products = [
+      {
+        name: "Indomie Goreng",
+        price: 100000,
+        desc: "Isi: 40 bks/pack | QTY: 11 | Kode barang: 8889686010947",
+        img: "https://upload.wikimedia.org/wikipedia/commons/1/13/Indomie_goreng.jpg"
+      }
+    ];
+
+    function toIDR(number) {
+      return number.toLocaleString("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 });
+    }
+
+    const productList = document.getElementById("product-list");
+    products.forEach(p => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <img src="${p.img}" alt="${p.name}">
+        <div class="card-content">
+          <h3>${p.name}</h3>
+          <div class="price">${toIDR(p.price)}</div>
+          <div class="desc">${p.desc}</div>
+        </div>
+      `;
+      productList.appendChild(card);
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
